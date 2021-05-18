@@ -4,10 +4,13 @@ library("tm")
 library("SnowballC")
 library("wordcloud")
 library("RColorBrewer")
-#source("config.R")
+library(yaml) 
 
-user = 'scantonnet'
-password = 'd}#2uyKYL}4e'
+setwd("/home/formateur/Documents/GitHub/jobio_grp3")
+yml <- yaml.load_file("config.yml")
+
+user = yml$poleEmp$user
+password = yml$poleEmp$psswd
 
 myco <- mongo("PE_grp3", url=paste("mongodb://",user,":",password,"@127.0.0.1/Datalab2020?authSource=admin",sep =""))
 
