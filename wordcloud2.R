@@ -12,13 +12,14 @@ password = 'd}#2uyKYL}4e'
 myco <- mongo("PE_grp3", url=paste("mongodb://",user,":",password,"@127.0.0.1/Datalab2020?authSource=admin",sep =""))
 
 descr = myco$aggregate('[{"$project": {"_id" :0, "description": 1} }]')
-#text =  paste(descr, collapse='')
-text = paste(descr, sep ='"', collapse = " ")
-text = toString(text, width = NULL)
 
-docs <- Corpus(VectorSource(text))
+for (word in descr){
+  text = paste(word)
+}
+
+docs <- VCorpus(VectorSource(text))
 toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
-docs <- tm_map(docs, toSpace, "/")
+docs <- tm_map(docs, toSpace, "\n")
 docs <- tm_map(docs, toSpace, "@")
 docs <- tm_map(docs, toSpace, "\\|")
 
@@ -36,3 +37,14 @@ docs <- tm_map(docs, removePunctuation)
 docs <- tm_map(docs, stripWhitespace)
 # Text stemming
 # docs <- tm_map(docs, stemDocument)
+
+dtm <- TermDocumentMatrix(docs)
+m <- as.matrix(dtm)
+v <- sort(rowSums(m),decreasing=TRUE)
+d <- data.frame(word = names(v),freq=v)
+head(d, 10)
+
+set.seed(1234)
+wordcloud(words = d$word, freq = d$freq, min.freq = 20,
+          max.words=200, random.order=FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
