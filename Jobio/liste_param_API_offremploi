@@ -1,0 +1,83 @@
+nomduparamètre | type de données attendues, s'il y a un chiffre c'est que c'est un maximum (integer 2 par exemple pour que des double digits) | A quoi sert le param
+              Les valeurs attendues quand elle sont données et ne peuvent être autre chose
+              un exemple de ce que ça doit donner dans notre requête
+              
+              
+range | string | plage de résultat max : 150 
+	ex : "range":"0-149"
+
+sort | integer 1 | tri des données
+	0 : Tri par pertinence décroissante, distance croissante, date de création décroissante
+	1 : Tri par date de création décroissant, pertinence décroissante, distance croissante
+	2 : Tri par distance croissante, pertinence décroissante, date de création décroissante
+	ex : "sort":1
+	
+codeROME | string 5 | code ROME correspondant au métier
+	3 codes ROME maximum par recherches
+	ex : "codeROME":"M1805"
+	
+experience | string 1 | niveau expérience demandé
+	1 : Moins d'un an
+	2 : De 1 à 3 ans
+	3 : 3 ans et plus
+	ex : "experience":"1"
+	
+origineOffre | integer 1 | origine de l'offre
+	1 : Pôle emploi
+	2 : Partenaire
+	ex : "origineOffre":1
+	
+qualification | integer 1 | cadre ou non
+	0 : non cadre
+	9 : cadre
+	ex : "qualification":9
+	
+tempsPlein | integer 1 | 
+	false
+	true
+	ex : "tempsPlein": true
+	
+commune | string 5 | code INSEE de la commune
+	Remarque : pour obtenir seulement les offres d'une commune spécifique, alors il faut renseigner le paramètre "distance=0"
+	ex : "commune":"[code INSEE]"
+	
+distance | integer | distance kilométrique du rayon de recherche
+	valeur par défaut : 10
+	ex : "distance":35
+	
+departement | string 3 | code INSEE du departement
+	ex : "departement":"[code INSEE]"
+	
+region | string 2 | code de la région de l'offre 
+	ex : "region":"24"
+	
+niveauFormation | string 3 | niveau de formation demandé
+	Se réferer au référentiel des niveaux de formations
+	
+motsCles | string | recherche par mot clé
+	Caractères autorisés : [aA-zZ]+[0-9]+[espace]+[@#$%^&+./-""]
+	ex : "motsCles":"data"
+	
+salaireMin | decimal | Salaire mini exprimé en euros
+	ex : "salaireMin":1260.54
+	
+accesTravailleurHandicape | Booléen | Capacité à acceuillir les travailleurs handicapés
+	ex : "accesTravaileurHandicape":True
+	
+experienceExigence | string | Filtres les offres selon le niveau d'expérience demandé
+	D : débutant accepté
+	S : Expérience souhaitée
+	E : Expérience exigée
+	ex : "experienceExigence": "D"
+	
+publieeDepuis | integer | nombres de jours max depuis publication de l'offre
+	Valeurs possibles : 1, 3, 7, 14, 31
+	ex : "publieeDepuis":14
+	
+minCreationDate | Date | date de création d'offre minimum
+	Norme ISO-8601 (YYYY-MM-DDTHH:MM:SSZ)
+	ex : "minCreationDate":"YYYY-MM-DDTHH:MM:SSZ"
+	
+maxCreationDate | date | Date de création de l'offre maximum
+	Norme ISO-8601 (YYYY-MM-DDTHH:MM:SSZ)
+	ex : "maxCreationDate":"YYYY-MM-DDTHH:MM:SSZ"
