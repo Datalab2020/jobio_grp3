@@ -5,7 +5,7 @@ Created on Thu May  6 14:18:25 2021
 
 @author: formateur
 """
-from math import *
+
 import yaml
 import requests
 import pprint
