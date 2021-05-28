@@ -13,11 +13,10 @@ ui <- dashboardPage(
   ),
   dashboardBody(
     tabItems( 
-      tabItem(tabName = "og1",
+      tabItem(tabName = "og1"),
+      tabItem(tabName = "og2",
               box(plotOutput("plot1")),
-              box(plotOutput("plot2"))
-              ),
-      tabItem(tabName = "og2"),
+              box(plotOutput("plot2"))),
       tabItem(tabName = "og3"),
       tabItem(tabName = "og4")
   )#,
