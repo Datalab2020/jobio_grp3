@@ -3,8 +3,8 @@ library(tidyverse)
 library(yaml) 
 library(ggplot2)
 
-# setwd("C:/Users/Ga/Documents/GitHub/jobio_grp3")
-setwd("/home/formateur/Documents/GitHub/jobio_grp3")
+setwd("C:/Users/Ga/Documents/GitHub/jobio_grp3")
+# setwd("/home/formateur/Documents/GitHub/jobio_grp3")
 yml <- yaml.load_file("config.yml")
 
 user = yml$poleEmp$user
@@ -22,9 +22,12 @@ contrat2 = myco$aggregate('[{"$project": {"_id" :0, "typeContrat": 1}},{"$group"
 #On renomme la colonne _id
 names(contrat2)[1] = "nomContrat"
 
-p<-ggplot(data=contrat2, aes(x=nomContrat, y=nbContrats)) +
-  geom_bar(stat = "identity", width = 0.5)
+p<-ggplot(data=contrat2, aes(x=nomContrat, y=nbContrats, fill = nomContrat)) +
+  geom_bar(stat = "identity", width = 0.8)+
+  geom_text(aes(label=nbContrats), vjust=-0.3, size=3.5)+
+  theme_minimal()
 p
+p + theme(legend.position="top")
 
 # -------------------
 
