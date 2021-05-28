@@ -60,7 +60,7 @@ expPer <- exp %>%
          midpoint = cumulative - nbExpExigee / 2,
          labels = paste0(round((nbExpExigee/ sum(nbExpExigee)) * 100, 1), "%"))
 
-ggplot(expPer, aes(x = "", y = nbExpExigee, fill = expExigee)) +
+camembertContrat = ggplot(expPer, aes(x = "", y = nbExpExigee, fill = expExigee)) +
   geom_bar(width = 1, stat = "identity") +
   coord_polar(theta = "y", start = 0) +
   labs(x = "", y = "", title = "Répartition expérience demandée \n",
@@ -69,7 +69,6 @@ ggplot(expPer, aes(x = "", y = nbExpExigee, fill = expExigee)) +
             fontface = "bold") + blank_theme +
   scale_fill_brewer(palette="Blues")+
   theme(axis.text.x=element_blank()) 
-
 
 # ------------------------- KPI % d'offres où le salaire n'est pas indiqué
 
