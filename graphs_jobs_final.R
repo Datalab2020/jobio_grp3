@@ -84,5 +84,5 @@ nbOffres = sum(salaire$nbSal) # nombre total d'offres
 indexNA = which(is.na(salaire$salaire)) # On cherche l'index du décompte de valeurs nulles
 noSalaire = salaire$nbSal[indexNA] # Total des offres dont le salaire n'est pas renseigné
 perNoSal = round((100 * noSalaire / nbOffres), digits = 0) # Pourcentage
-
+perNoSal
 # salaireOK = sum(salaire$nbSal) - noSalaire Offres dont le salaire est indiqué

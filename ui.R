@@ -17,7 +17,8 @@ ui <- dashboardPage(
       tabItem(tabName = "og2",
               box(plotOutput("plot1")),
               box(plotOutput("plot2")),
-              infoBox("Taux d'offres sans salaire :", valueBoxOutput(kpi1) , icon = icon("credit-card"), color = "green")),
+              # infoBox("Taux d'offres sans salaire :",valueBoxOutput(kpi1) , icon = icon("credit-card"), color = "green")),
+              box(valueBoxOutput(kpi1) , icon = icon("credit-card"), color = "green")),
       tabItem(tabName = "og3"),
       tabItem(tabName = "og4")
   )#,
