@@ -17,10 +17,15 @@ ui <- dashboardPage(
       tabItem(tabName = "og2",
               box(plotOutput("plot1")),
               box(plotOutput("plot2")),
-              # infoBox("Taux d'offres sans salaire :",valueBoxOutput(kpi1) , icon = icon("credit-card"), color = "green")),
-              box(valueBoxOutput(kpi1) , icon = icon("credit-card"), color = "green")),
+              # box(infoBox(perNoSal) , icon = icon("credit-card"), color = "green")
+              infoBox("Nombre d'utilisateur :",perNoSal, icon = icon("credit-card"))
+              ),
       tabItem(tabName = "og3"),
-      tabItem(tabName = "og4")
+      tabItem(tabName = "og4",
+              box(plotOutput("plot3")),
+              wordcloud2Output("wc2")
+      )
+      )
+    )
   )#,
-  # tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "custom.css"))
-))
+  #tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "custom.css"))
