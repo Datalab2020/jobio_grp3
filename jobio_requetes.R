@@ -18,6 +18,7 @@ library(purrr)
 library(inlmisc)
 
 
+
 myco=mongo("offres", url = "mongodb://cmatto:%28cCo%27NR8.%227xx@127.0.0.1/bdd_projet9_secf?authSource=admin") #changer code pour cacher apparition mot de passe 
 
 ###-----------------------------------------------------------NB JOB
@@ -121,6 +122,12 @@ cartehoraire = newsalaire%>%filter(newsalaire$typesalaire=="Horaire")
 cartemensuel = newsalaire%>%filter(newsalaire$typesalaire=="Mensuel")
 carteannuel = newsalaire%>%filter(newsalaire$typesalaire=="Annuel")
 
+# 
+# ddply(d, .(Name), summarize,  Rate1=mean(Rate1), Rate2=mean(Rate2))
+# newsalaire %>%
+#   group_by(typesalaire) %>%
+#   summarise_at(funs(mean(chiffresalaire, na.rm=TRUE)))
+
 
 ###--------------------------------------------------
 
@@ -191,7 +198,7 @@ map1=leaflet(mapville) %>%
   setView(lng = 2.0589, lat = 45.3601, zoom = 5) %>%
   leaflet.extras::addResetMapButton() %>%
   leaflet.extras::addSearchOSM()
-
+map1
 
 
 #Carte salaire
@@ -231,4 +238,40 @@ addMarkers(
   leaflet.extras::addSearchOSM()
 
 
+
+
+dftemps <- myco$aggregate(' [ {"$project": {"_id": 0, "dateCreation": {"$substr": ["$dateCreation", 0, 7]}, "id": 1}}]') 
+tpsgraph <- dftemps %>% count(dateCreation)
+
+
+b <- ggplot(data=tpsgraph, aes(x=dateCreation, y=n, fill=dateCreation)) +
+  geom_bar(stat = "identity") + theme_minimal()
+b + theme(
+  panel.background = element_rect(fill = "lightblue",
+                                  colour = "lightblue",
+                                  size = 0.5, linetype = "solid"),
+  panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                  colour = "white"), 
+  panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                  colour = "white")
+)
+
+
+
+# ------------------------- KPI % d'offres où le salaire n'est pas indiqué
+
+salaire = myco$aggregate('[{"$addFields": {"salaireLib": "$salaire.libelle"}},{"$project": {"_id" :0, "salaireLib": 1}},{"$group" : {"_id":"$salaireLib", "groupe" : {"$sum" : 1}}}]')
+
+names(salaire)[1] = "salaire"
+names(salaire)[2] = "nbSal"
+
+salaire2 = myco$aggregate('[{"$addFields": {"salaireLib": "$salaire.libelle"}},{"$project": {"_id" :0, "salaireLib": 1} }]')
+
+nbOffres = sum(salaire$nbSal) # nombre total d'offres
+
+indexNA = which(is.na(salaire$salaire)) # On cherche l'index du décompte de valeurs nulles
+noSalaire = salaire$nbSal[indexNA] # Total des offres dont le salaire n'est pas renseigné
+perNoSal = round((100 * noSalaire / nbOffres), digits = 0) # Pourcentage
+perNoSal
+# salaireOK = sum(salaire$nbSal) - noSalaire Offres dont le salaire est indiqué
 
